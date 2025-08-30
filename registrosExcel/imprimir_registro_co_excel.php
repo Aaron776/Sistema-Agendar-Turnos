@@ -63,7 +63,7 @@ $writer = new Xlsx($spreadsheet);
 
 // Cabeceras para descargar
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="turnosCG.xlsx"');
+header('Content-Disposition: attachment;filename="turnosCO.xlsx"');
 header('Cache-Control: max-age=0');
 
 $writer->save('php://output');

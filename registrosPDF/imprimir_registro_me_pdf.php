@@ -67,5 +67,5 @@ $html .= '
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape'); // horizontal
 $dompdf->render();
-$dompdf->stream("turnosVA.pdf", ["Attachment" => false]); // false = abre en el navegador
+$dompdf->stream("turnosME.pdf", ["Attachment" => false]); // false = abre en el navegador
 exit;

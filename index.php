@@ -1,5 +1,11 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +23,7 @@
             --text: #444;
             --text-light: #b8c7ce;
             --border: #d2d6de;
-            --shadow: 0 3px 6px rgba(0,0,0,0.1);
+            --shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -238,9 +244,17 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(60, 141, 188, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(60, 141, 188, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(60, 141, 188, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(60, 141, 188, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(60, 141, 188, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(60, 141, 188, 0);
+            }
         }
 
         .fade-in {
@@ -248,8 +262,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 576px) {
@@ -257,8 +278,21 @@
                 width: 90%;
             }
         }
+        .alert {
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
+
 <body>
     <div class="login-box">
         <div class="login-logo">
@@ -272,13 +306,23 @@
 
             <div class="login-card-body">
                 <form id="loginForm" action="controladores/login.php" method="POST">
+                    <?php if (isset($_SESSION['errores'])) : ?>
+                        <div class="alert alert-danger">
+                            <ul>
+                                <?php foreach ($_SESSION['errores'] as $error) : ?>
+                                    <li><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <?php unset($_SESSION['errores']); ?>
+                    <?php endif; ?>
                     <div class="form-group">
                         <label for="username">Usuario</label>
                         <div class="input-group">
                             <span class="input-group-prepend">
                                 <i class="fas fa-user"></i>
                             </span>
-                            <input type="text" name="usuario" class="form-control" id="username" placeholder="Ingresa tu usuario" required>
+                            <input type="text" name="usuario" maxlength="100" class="form-control" id="username" placeholder="Ingresa tu usuario" required>
                         </div>
                     </div>
 
@@ -322,7 +366,7 @@
                 input.addEventListener('focus', function() {
                     this.parentElement.classList.add('focused');
                 });
-                
+
                 input.addEventListener('blur', function() {
                     if (this.value === '') {
                         this.parentElement.classList.remove('focused');
@@ -332,4 +376,5 @@
         });
     </script>
 </body>
+
 </html>
