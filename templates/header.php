@@ -1,12 +1,10 @@
 <?php
-session_start();
-
-// Validar sesión
-if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
-    header("Location: index.php");
-    exit();
+// Comprobar el estado actual de la sesión
+if (session_status() === PHP_SESSION_NONE) { // Si no hay ninguna sesión activa
+    session_start(); // Inicia una nueva sesión o reanuda la existente
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -551,6 +549,7 @@ if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
                 <ul>
                     
                     <?php if($_SESSION['rol'] == 'admin') { ?>
+                        <li><a href="admin.php"><i class="fas fa-table"></i> Dashboard</a></li>
                         <li><a href="vista_consulta_general.php"><i class="fas fa-user-md"></i> Turnos para Consulta General</a></li>
                         <li><a href="vista_emergencia.php"><i class="fas fa-ambulance"></i> Turnos para Emergencias</a></li>
                         <li><a href="vista_vacunacion.php"><i class="fas fa-vial"></i> Turnos para Vacunacion</a></li>

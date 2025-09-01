@@ -1,12 +1,13 @@
 <?php
-session_start();
+include("autorizacion/auth.php"); // valida login y arranca sesión
 
-// 1) Seguridad básica
-if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
-    header("Location: index.php");
+// Verificar que tenga rol cliente
+if ($_SESSION['rol'] !== 'cliente') {
+    header("Location: index.php"); // lo mandamos al login
     exit();
 }
 
+include("templates/header.php");
 require __DIR__ . '/vendor/autoload.php';
 include_once 'bd/conexion.php';
 

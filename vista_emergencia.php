@@ -1,12 +1,15 @@
 <?php
-include("templates/header.php"); // este archivo es el que  ya tiene session_start()
-include_once 'bd/conexion.php';
+include("autorizacion/auth.php"); // valida login y arranca sesión
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
-    header("Location: index.php");
+// Verificar que tenga rol admin
+if ($_SESSION['rol'] !== 'admin') {
+    header("Location: index.php"); // lo mandamos al login
     exit();
 }
+
+include("templates/header.php");
+include_once 'bd/conexion.php';
+
 
 // Actualizar el estado de los turnos pendientes para cambiar su estado a "realizado" una vez que paso la fecha y la hora de la cita independientemente si el pacinte fue o no a la cita
 $conexion->exec(" UPDATE turnos SET estado = 'realizado' WHERE estado = 'pendiente'  AND STR_TO_DATE(CONCAT(fecha_cita, ' ', hora_cita), '%Y-%m-%d %H:%i:%s') < NOW()");

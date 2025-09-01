@@ -1,15 +1,18 @@
 <?php
-include("templates/header.php");  // este archivo incluye el session_start();
+include("autorizacion/auth.php"); // valida login y arranca sesión
 
-if(!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
-    header("Location: index.php");
+// Verificar que tenga rol admin
+if ($_SESSION['rol'] !== 'admin') {
+    header("Location: index.php"); // lo mandamos al login
     exit();
 }
 
+
+include("templates/header.php");
 include_once 'controladores/admin.php';
 ?>
+
 <style>
-    
     /* Contenido */
     .content {
         padding: 20px;
@@ -368,6 +371,50 @@ include_once 'controladores/admin.php';
         </div>
     </div>
 </div>
+
+<!-- Tabla con los turnos de hoy -->
+<div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white">
+        Detalle de Turnos de Hoy
+    </div>
+    <div class="card-body">
+        <?php if (!empty($turnosHoy)) : ?>
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Paciente</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($turnosHoy as $item) : ?>
+                        <tr>
+                            <td><?php echo $item->id; ?></td>
+                            <td><?php echo htmlspecialchars($item->paciente); ?></td>
+                            <td><?php echo date("H:i", strtotime($item->hora_cita)); ?></td>
+                            <td>
+                                <?php if ($item->estado == 'pendiente') : ?>
+                                    <span class="badge bg-warning text-dark">Pendiente</span>
+                                <?php elseif ($item->estado == 'atendido') : ?>
+                                    <span class="badge bg-success">Atendido</span>
+                                <?php else : ?>
+                                    <span class="badge bg-secondary">Otro</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <div class="alert alert-info text-center">
+                No hay turnos agendados para hoy.
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
 
 <!-- Acciones rápidas -->
 <div class="page-header">

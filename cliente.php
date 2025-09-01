@@ -1,13 +1,14 @@
 <?php
-include("templates/header.php"); // este archivo es el que  ya tiene session_start()
+include("autorizacion/auth.php"); // valida login y arranca sesión
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
-    header("Location: index.php");
+// Verificar que tenga rol cliente
+if ($_SESSION['rol'] !== 'cliente') {
+    header("Location: index.php"); // lo mandamos al login
     exit();
 }
 
 
+include("templates/header.php");
 include_once 'bd/conexion.php';
 
 // Traer los servicios de la base de datos
