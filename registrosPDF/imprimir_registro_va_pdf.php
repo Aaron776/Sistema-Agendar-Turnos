@@ -13,7 +13,7 @@ if (!isset($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
 }
 
 // Traer los registros
-$sql = $conexion->prepare("SELECT turnos.id AS id_turno, fecha_cita, hora_cita, nota_adicional, estado, cedula, usuarios.nombre AS nombre_paciente, usuarios.email AS email_paciente 
+$sql = $conexion->prepare("SELECT turnos.id AS id_turno, fecha_cita, hora_cita, nota_adicional, estado, usuarios.cedula AS cedula, usuarios.nombre AS nombre_paciente, usuarios.email AS email_paciente 
     FROM turnos 
     INNER JOIN servicios ON turnos.servicio_id = servicios.id 
     INNER JOIN usuarios ON turnos.usuario_id = usuarios.id 

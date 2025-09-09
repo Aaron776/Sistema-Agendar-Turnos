@@ -11,11 +11,11 @@ if ($_SESSION['rol'] !== 'cliente') {
 include("templates/header.php");
 include_once 'bd/conexion.php';
 
-// Obtener el ultimo id del turno generado desde URL
+// Aqui esto guardando el id del ultimo turno registrado en la base de datos que fue mandado por la URL desde mi controlador registroTurno.php
 $id_turno = $_GET['id_turno'];
 
-// Traer ultimo turno de la base de datos 
-$sql = $conexion->prepare("SELECT usuarios.nombre as usuario, cedula,fecha_cita,hora_cita,servicios.nombre as servicio,nota_adicional FROM turnos INNER JOIN servicios ON turnos.servicio_id = servicios.id INNER JOIN usuarios ON turnos.usuario_id = usuarios.id WHERE turnos.id = :id AND usuario_id = :id_usuario");
+// Traer los atributos o datos del ultimo turno de la base de datos 
+$sql = $conexion->prepare("SELECT usuarios.nombre as usuario, usuarios.cedula AS cedula,fecha_cita,hora_cita,servicios.nombre as servicio,nota_adicional FROM turnos INNER JOIN servicios ON turnos.servicio_id = servicios.id INNER JOIN usuarios ON turnos.usuario_id = usuarios.id WHERE turnos.id = :id AND usuario_id = :id_usuario");
 $sql->bindParam(':id', $id_turno);
 $sql->bindParam(':id_usuario', $_SESSION['id']);
 $sql->execute();
@@ -374,6 +374,10 @@ if ($turno == false) {
                 <div class="detail-row">
                     <span class="detail-label">Fecha de la Cita:</span>
                     <span class="detail-value"><?php echo $turno->fecha_cita; ?></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cedula de Identidad:</span>
+                    <span class="detail-value"><?php echo $turno->cedula; ?></span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Hora de la Cita:</span>

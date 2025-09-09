@@ -16,7 +16,7 @@ $conexion->exec(" UPDATE turnos SET estado = 'realizado' WHERE estado = 'pendien
 
 
 // Traer los servicios de la base de datos
-$sql = $conexion->prepare("SELECT turnos.id AS id_turno, fecha_cita, hora_cita, nota_adicional,estado,cedula,estado,usuarios.nombre AS nombre_paciente, usuarios.email AS email_paciente FROM turnos INNER JOIN servicios ON turnos.servicio_id = servicios.id INNER JOIN usuarios ON turnos.usuario_id = usuarios.id WHERE turnos.servicio_id = 4");
+$sql = $conexion->prepare("SELECT turnos.id AS id_turno, usuarios.cedula AS cedula, fecha_cita, hora_cita, nota_adicional,estado,estado,usuarios.nombre AS nombre_paciente, usuarios.email AS email_paciente FROM turnos INNER JOIN servicios ON turnos.servicio_id = servicios.id INNER JOIN usuarios ON turnos.usuario_id = usuarios.id WHERE turnos.servicio_id = 4");
 $sql->execute();
 $turnos = $sql->fetchAll(PDO::FETCH_OBJ);
 ?>
@@ -537,8 +537,8 @@ $turnos = $sql->fetchAll(PDO::FETCH_OBJ);
                     <tr>
                         <td>#<?php echo $item->id_turno; ?></td>
                         <td><?php echo $item->nombre_paciente; ?></td>
-                        <td><?php echo $item->cedula; ?></td>
                         <td><?php echo $item->email_paciente; ?></td>
+                        <td><?php echo $item->cedula; ?></td>
                         <td><?php echo $item->fecha_cita; ?></td>
                         <td><?php echo $item->hora_cita; ?></td>
                         <td>

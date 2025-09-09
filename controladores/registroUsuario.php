@@ -2,11 +2,12 @@
 session_start();
 include_once '../bd/conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['nombre']) && isset($_POST['usuario'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cedula']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['nombre']) && isset($_POST['usuario'])) {
     $email    = trim($_POST['email']);
     $password = trim($_POST['password']);
     $nombre   = trim($_POST['nombre']);
     $usuario  = trim($_POST['usuario']);
+    $cedula   = trim($_POST['cedula']);
     $errores = [];
 
     // ---------------- VALIDACIONES ----------------
@@ -22,6 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
         $errores[] = 'No se permiten etiquetas HTML en el nombre';
     } elseif (preg_match('/(viagra|casino|bitcoin|porno)/i', $nombre)) {
         $errores[] = 'El nombre contiene contenido no permitido';
+    }
+
+    if (empty($cedula)) {
+        $errores[] = "La cedula es obligatoria.";
+    }elseif (strlen($cedula) > 10) {
+        $errores[] = "La cedula debe tener un máximo de 10 caracteres.";
     }
 
     if (empty($usuario)) {
@@ -48,11 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     if (empty($errores)){ // Si no hay errores procedemos a registrar al usuario
         $password_encriptada = password_hash($password, PASSWORD_BCRYPT); // Encriptamos la contraseña antes de guardarla
 
-        $sql = $conexion->prepare("INSERT INTO usuarios (nombre, usuario, email, password) VALUES (:nombre, :usuario, :email, :password)");
+        $sql = $conexion->prepare("INSERT INTO usuarios (nombre, usuario, email, cedula, password) VALUES (:nombre, :usuario, :email, :cedula, :password)");
         $sql->bindParam(':email', $email);
         $sql->bindParam(':password', $password_encriptada);
         $sql->bindParam(':nombre', $nombre);
         $sql->bindParam(':usuario', $usuario);
+        $sql->bindParam(':cedula', $cedula);
         $sql->execute();
 
         $_SESSION['exito'] = "¡Registro exitoso! Tu cuenta ha sido creada correctamente.";

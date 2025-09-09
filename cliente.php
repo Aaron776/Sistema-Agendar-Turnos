@@ -362,7 +362,7 @@ $servicios = $sql->fetchAll(PDO::FETCH_OBJ);
                             <span class="input-group-prepend">
                                 <i class="fas fa-id-card"></i>
                             </span>
-                            <input type="text" class="form-control" minlength="10" id="patientId" name="cedula" placeholder="Número de identificación" required>
+                            <input type="text" class="form-control" minlength="10" maxlength="10" id="patientId" name="cedula" placeholder="Número de identificación" value="<?php echo $_SESSION['cedula']; ?>" required readonly>
                         </div>
                     </div>
                 </div>

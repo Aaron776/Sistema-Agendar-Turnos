@@ -404,6 +404,15 @@ session_start();
                                     <input type="text" name="usuario" class="form-control" id="username" placeholder="Elige un nombre de usuario" required>
                                 </div>
                             </div>
+                            <div class="form-group required">
+                                <label for="username">Cedula de Identidad</label>
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <i class="fas fa-id-card"></i>
+                                    </span>
+                                    <input type="text" name="cedula" maxlength="10" class="form-control" id="username" placeholder="Ingresa tu cedula" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

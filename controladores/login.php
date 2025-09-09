@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['usuario']) && !empty
     if(empty($errores)){
 
         // Traer usuario de la base de datos que coincida con el usuario y la contraseña ingresado en el formulario de login
-        $sql = $conexion->prepare("SELECT id, email, nombre, usuario, password, rol FROM usuarios WHERE usuario = :usuario LIMIT 1");
+        $sql = $conexion->prepare("SELECT id, email, nombre, usuario, cedula, password, rol FROM usuarios WHERE usuario = :usuario LIMIT 1");
         $sql->bindParam(':usuario', $usuario);
         $sql->execute();
         $usuario_login = $sql->fetch(PDO::FETCH_OBJ);
@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['usuario']) && !empty
             $_SESSION['nombre'] = $usuario_login->nombre;
             $_SESSION['usuario'] = $usuario_login->usuario;
             $_SESSION['rol'] = $usuario_login->rol;
+            $_SESSION['cedula'] = $usuario_login->cedula;
             $_SESSION['logueado'] = true;
 
             if ($usuario_login->rol === 'admin') {

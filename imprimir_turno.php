@@ -1,5 +1,5 @@
 <?php
-include("autorizacion/auth.php"); // valida login y arranca sesión
+session_start();
 
 // Verificar que tenga rol cliente
 if ($_SESSION['rol'] !== 'cliente') {
@@ -7,7 +7,7 @@ if ($_SESSION['rol'] !== 'cliente') {
     exit();
 }
 
-include("templates/header.php");
+// Incluir librerias
 require __DIR__ . '/vendor/autoload.php';
 include_once 'bd/conexion.php';
 
@@ -25,7 +25,7 @@ $sql = $conexion->prepare("
     SELECT 
         turnos.id AS id_turno,
         usuarios.nombre AS usuario,
-        cedula,
+        usuarios.cedula AS cedula,
         turnos.fecha_cita,
         turnos.hora_cita,
         servicios.nombre AS servicio,

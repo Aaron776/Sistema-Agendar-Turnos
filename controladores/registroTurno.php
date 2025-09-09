@@ -64,10 +64,10 @@ if(isset($_POST['nombre']) && isset($_POST['cedula']) && isset($_POST['nota_adic
         $sql->bindParam(':nota_adicional', $nota_adicional);
         $sql->execute();
 
-        // Obtener el último ID insertado
+        // Obtener el ID del ultimo turno insertado
         $id_turno = $conexion->lastInsertId();
 
-        header("Location: ../confirmacion_turno.php?id_turno=$id_turno");
+        header("Location: ../confirmacion_turno.php?id_turno=$id_turno"); // Redirigir a la página de confirmación_turno.php y atraves de la URL envio el id de ese ultimo turno
         exit;
     }else{
         $_SESSION['errores'] = $errores;
