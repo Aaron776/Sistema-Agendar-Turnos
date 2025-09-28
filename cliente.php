@@ -387,7 +387,7 @@ $servicios = $sql->fetchAll(PDO::FETCH_OBJ);
                             <span class="input-group-prepend">
                                 <i class="fas fa-clock"></i>
                             </span>
-                            <input type="time" class="form-control" id="appointmentTime" min="09:00" max="18:00" name="hora_cita" required>
+                            <input type="time" class="form-control" id="appointmentTime" min="08:00" max="19:00" name="hora_cita" required>
                         </div>
                     </div>
                 </div>

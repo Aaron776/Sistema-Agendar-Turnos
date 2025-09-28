@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'sistema_turnos';
+$dbname = 'sistema_agendar_turnos';
 $user = 'root';
 $pass = '';
 

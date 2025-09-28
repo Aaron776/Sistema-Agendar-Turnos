@@ -5,7 +5,7 @@ include_once '../bd/conexion.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['usuario']) && !empty($_POST['password'])) {
     $usuario = trim($_POST['usuario']);
     $password = trim($_POST['password']);
-    $errores=[];
+    $errores = [];
 
     // Validaciones
     if (empty($usuario)) {
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['usuario']) && !empty
 
         // Traer usuario de la base de datos que coincida con el usuario y la contraseña ingresado en el formulario de login
         $sql = $conexion->prepare("SELECT id, email, nombre, usuario, cedula, password, rol FROM usuarios WHERE usuario = :usuario LIMIT 1");
-        $sql->bindParam(':usuario', $usuario);
+        $sql->bindParam(':usuario', $usuario, PDO::PARAM_STR);
         $sql->execute();
         $usuario_login = $sql->fetch(PDO::FETCH_OBJ);
 
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['usuario']) && !empty
             exit();
         } else {
             // Error si las credenciales son incorrectas
-            $_SESSION['errores'] = ["Credenciales incorrectas. Intenta de nuevo."]; 
+            $_SESSION['errores'] = "Credenciales incorrectas. Intenta de nuevo."; 
             header('Location: ../index.php');
             exit();
         }

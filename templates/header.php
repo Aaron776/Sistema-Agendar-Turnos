@@ -571,14 +571,6 @@ if (session_status() === PHP_SESSION_NONE) { // Si no hay ninguna sesión activa
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="header-icons">
-                    <div class="header-icon">
-                        <i class="fas fa-bell"></i>
-                        <span class="icon-badge">3</span>
-                    </div>
-                    <div class="header-icon">
-                        <i class="fas fa-envelope"></i>
-                        <span class="icon-badge">5</span>
-                    </div>
                     <div class="user-menu">
                         <div class="user-avatar">
                             <i class="fas fa-user"></i>

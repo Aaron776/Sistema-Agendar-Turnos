@@ -33,8 +33,8 @@ if (isset($_POST['email'])) {
 
         // 4. Guardar en la base de datos
         $update = $conexion->prepare("UPDATE usuarios SET password = :password WHERE id = :id");
-        $update->bindParam(':password', $codigoHasheado);
-        $update->bindParam(':id', $usuario->id);
+        $update->bindParam(':password', $codigoHasheado, PDO::PARAM_STR);
+        $update->bindParam(':id', $usuario->id,PDO::PARAM_INT);
         $update->execute();
 
         // 5. Enviar correo con PHPMailer
