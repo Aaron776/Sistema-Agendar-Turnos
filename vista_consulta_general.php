@@ -17,6 +17,7 @@ include_once 'bd/conexion.php';
 $conexion->exec(" UPDATE turnos SET estado = 'realizado' WHERE estado = 'pendiente'  AND STR_TO_DATE(CONCAT(fecha_cita, ' ', hora_cita), '%Y-%m-%d %H:%i:%s') < NOW()");
 
 
+
 // Traer los servicios de la base de datos
 $sql = $conexion->prepare("SELECT turnos.id AS id_turno, fecha_cita, hora_cita, nota_adicional,estado,usuarios.cedula AS cedula,estado,usuarios.nombre AS nombre_paciente, usuarios.email AS email_paciente FROM turnos INNER JOIN servicios ON turnos.servicio_id = servicios.id INNER JOIN usuarios ON turnos.usuario_id = usuarios.id WHERE turnos.servicio_id = 1");
 $sql->execute();
