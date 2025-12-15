@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['usuario']) && !empty
             exit();
         } else {
             // Error si las credenciales son incorrectas
-            $_SESSION['errores'] = "Credenciales incorrectas. Intenta de nuevo."; 
+            $_SESSION['errores'] = ["Credenciales incorrectas. Intenta de nuevo."];
             header('Location: ../index.php');
             exit();
         }
